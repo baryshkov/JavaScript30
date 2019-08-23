@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://necolas.github.io/normalize.css/latest/normalize.css">
+  <title>Scoped CSS Varialbles</title>
+</head>
+<body>
+<h2 class="hh">Update CSS Variables with <span class="hl">JS</span></h2>
+
+<div class="controls">
+  <label for="spacing">Spacing:</label>
+  <input type="range" id="spacing" name="spacing" min="10" max="200"
+         value="10" data-sizing="px">
+
+  <label for="blur">Blur:</label>
+  <input type="range" id="blur" name="blur" min="0" max="25" value="10"
+         data-sizing="px">
+
+  <label for="base">Base color</label>
+  <input type="color" id="base" name="base" value="#ffc600">
+</div>
+
+<img src="https://source.unsplash.com/7bwQXzbF6KE/800x500" alt="girl">
+
+<style>
+  :root {
+    --base: #ffc600;
+    --spacing: 10px;
+    --blur: 10px;
+  }
+
+  h2 {
+    transition: all 1s;
+  }
+
+  .mini {
+    font-size: 50px;
+    color: #f4f4;
+  }
+
+  img {
+    padding: var(--spacing);
+    background: var(--base);
+    filter: blur(var(--blur))
+  }
+
+  .hl {
+    color: var(--base);
+  }
+
+  body {
+    text-align: center;
+    background-color: #193549;
+    color: #fff;
+    font-family: 'helvetica neue', sans-serif;
+    font-weight: 100;
+    font-size: 50px;
+  }
+
+  .controls {
+    margin-bottom: 50px;
+  }
+
+  input {
+    width: 100px;
+  }
+</style>
+
+<script>
+  const inputs = document.querySelectorAll('.controls input');
+  const hh = document.querySelector('.hh');
+
+  function wide(e) {
+    this.classList.toggle('mini');
+    // console.log(e);
+  }
+
+  // hh.addEventListener('click', wide);
+  hh.addEventListener('click', (event) => event.target.classList.toggle('mini'));
+
+  function handleUpdate() {
+    const suffix = this.dataset.sizing || '';
+    document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+    console.log(suffix);
+  }
+
+  inputs.forEach(input => input.addEventListener('change', handleUpdate));
+  inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+</script>
+</body>
+</html>
+
+
