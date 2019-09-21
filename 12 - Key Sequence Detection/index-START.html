@@ -7,6 +7,18 @@
 </head>
 <body>
 <script>
+  const code =
+      ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft',
+        'ArrowRight', 'ArrowLeft',
+        'ArrowRight', 'a', 'b'];
+  const userInput = [];
+  window.addEventListener('keyup', (e) => {
+    userInput.push(e.key);
+    userInput.splice(-code.length - 1, userInput.length - code.length);
+    if (JSON.stringify(userInput) == JSON.stringify(code)) {
+      cornify_add();
+    }
+  });
 </script>
 </body>
 </html>
