@@ -35,6 +35,31 @@
   </style>
 
 <script>
+  const hero = document.querySelector('.hero');
+  const text = hero.querySelector('.hero h1');
+  const walk = 100; //100px
+
+  function random() {
+    return Math.floor(Math.random() * 5);
+  }
+
+  function shadow(e) {
+    const { offsetWidth: width, offsetHeight: height } = hero;
+    const color = ['red', 'green', 'blue', 'SpringGreen', 'salmon'];
+    let { offsetX: x, offsetY: y } = e;
+
+    if (this !== e.target) {
+      x = x + e.target.offsetLeft;
+      y = y + e.target.offsetTop;
+    }
+
+    const xWalk = Math.floor((x / width * walk) - (walk / 2));
+    const yWalk = Math.floor((y / height * walk) - (walk / 2));
+
+    text.style.textShadow = `${xWalk}px ${yWalk}px ${color[random()]}`;
+  }
+
+  hero.addEventListener('mousemove', shadow);
 </script>
 </body>
 </html>
